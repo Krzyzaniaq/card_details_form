@@ -1,5 +1,5 @@
 import UserDataForm from './UserDataForm';
-import UserDataAdded from './UserDataAdded';
+import UserDataComplete from './UserDataComplete';
 import UserDataButton from './UserDataButton';
 
 import classes from './UserData.module.css';

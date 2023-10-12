@@ -5,15 +5,17 @@
   grid-template-columns: 35% 65%;
 }
 
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .app {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
-}
+} */
 
 @media (max-width: 700px) {
   .app {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 }
 

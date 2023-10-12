@@ -16,13 +16,13 @@ body {
   place-items: center;
   width: 100%;
   min-height: 100vh;
+  font-size: 18px;
 }
 
 #root {
   width: 100%;
   min-height: 100%;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
   text-align: center;
 }
 
