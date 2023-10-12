@@ -1,3 +1,21 @@
-.cardback {
-    width: 200px;
+.card-back {
+    position: relative;
+    background-image: url('../assets/bg-card-back.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 80%;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    color: #fff;
+    border-radius: 16px;
+    left: 50%;
 }
+
+.card-back-cvc {
+    position: absolute;
+    bottom: 25%;
+    right: 15%;
+}
+

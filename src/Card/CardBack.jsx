@@ -1,9 +1,10 @@
 import classes from './CardBack.module.css';
-import bgCardBack from '../assets/bg-card-back.png';
 
 const CardBack = () => {
   return (
-    <img src={bgCardBack} className={classes.cardback} alt="Card Background" />
+    <div className={classes['card-back']}>
+      <p className={classes['card-back-cvc']}>dfsfsfs</p>
+    </div>
   );
 };
 
