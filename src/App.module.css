@@ -1,8 +1,8 @@
 .app {
   width: 100%;
   min-height: 100%;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 35% 65%;
 }
 
 @media (max-width: 900px) {
