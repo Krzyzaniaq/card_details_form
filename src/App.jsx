@@ -1,6 +1,15 @@
 import { useState } from 'react';
-import './App.css';
+import Card from './Card/Card';
+import UserData from './UserData/UserData';
+import classes from './App.module.css';
 
-function App() {}
+function App() {
+  return (
+    <div className={classes.app}>
+      <Card />
+      <UserData />
+    </div>
+  );
+}
 
 export default App;
