@@ -6,7 +6,7 @@ import classes from './UserData.module.css';
 
 const UserData = () => {
   return (
-    <div className={classes.userdata}>
+    <div className={classes['user-data']}>
       <UserDataForm />
       <UserDataButton />
     </div>
