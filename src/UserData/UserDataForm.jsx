@@ -5,15 +5,33 @@ import classes from './UserDataForm.module.css';
 const UserDataForm = (props) => {
   const [enteredName, setEnteredName] = useState('');
   const [nameIsValid, setNameIsValid] = useState();
+  const [enteredNumber, setEnteredNumber] = useState('');
+  const [numberIsValid, setNumberIsValid] = useState();
 
   const nameChangeHandler = (e) => {
-    setEnteredName(e.target.value);
+    setEnteredName(e.target.value.toUpperCase());
 
     //validate name
   };
 
   const validateNameHandler = (e) => {
-    setNameIsValid(enteredName.includes(' ') & (enteredName.length > 10));
+    setNameIsValid(
+      enteredName.includes(' ') & (enteredName.trim().length > 10)
+    );
+  };
+
+  const numberChangeHandler = (e) => {
+    setEnteredNumber(e.target.value);
+
+    //validate number
+  };
+
+  const validateNumberHandler = (e) => {
+    const numberRegex = /^[0-9]+$/;
+    setNumberIsValid(
+      numberRegex.test(enteredNumber.trim()) &&
+        enteredNumber.trim().length === 16
+    );
   };
 
   return (
@@ -36,6 +54,8 @@ const UserDataForm = (props) => {
           className={classes['data-input']}
           id="user-data-number"
           placeholder="e.g. 1234 5678 9123 0000"
+          onChange={numberChangeHandler}
+          onBlur={validateNumberHandler}
         />
       </span>
 
