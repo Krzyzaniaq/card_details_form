@@ -1,6 +1,21 @@
+import { useState } from 'react';
+
 import classes from './UserDataForm.module.css';
 
-const UserDataForm = () => {
+const UserDataForm = (props) => {
+  const [enteredName, setEnteredName] = useState('');
+  const [nameIsValid, setNameIsValid] = useState();
+
+  const nameChangeHandler = (e) => {
+    setEnteredName(e.target.value);
+
+    //validate name
+  };
+
+  const validateNameHandler = (e) => {
+    setNameIsValid(enteredName.includes(' ') & (enteredName.length > 10));
+  };
+
   return (
     <div className={classes['data-form']}>
       <span>
@@ -10,6 +25,8 @@ const UserDataForm = () => {
           className={classes['data-input']}
           id="user-data-name"
           placeholder="e.g. Jane Appleseed"
+          onChange={nameChangeHandler}
+          onBlur={validateNameHandler}
         />
       </span>
       <span>
