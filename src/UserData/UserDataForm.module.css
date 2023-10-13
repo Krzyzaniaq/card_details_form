@@ -1,18 +1,51 @@
 /* hsl(270, 3%, 87%) */
 
 .data-form {
-    width: 300px;
+    width: 350px;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .text {
     color: hsl(278, 68%, 11%);
+    margin-bottom: 8px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
 }
 
 .data-input {
-    color: hsl(278, 68%, 11%);
     border: 1px solid hsl(270, 3%, 87%);
     width: 100%;
-    height: 30px;
     font-size: 1rem;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.data-input::placeholder {
+    color: hsl(270, 3%, 87%);
+    font-weight: 600;
+}
+
+.data-date-cvc {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.data-date-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.data-date-inputs > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
 }

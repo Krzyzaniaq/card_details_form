@@ -18,6 +18,7 @@ body {
   min-height: 100vh;
   font-size: 18px;
   font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
 }
 
 #root {
@@ -27,7 +28,8 @@ body {
   text-align: center;
 }
 
-p {
+p, h4 {
   margin-top: 0;
 }
+
 
