@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+// dodac id i label do inputow
+
 import classes from './UserDataForm.module.css';
 
 const UserDataForm = (props) => {
@@ -9,11 +11,13 @@ const UserDataForm = (props) => {
   const [numberIsValid, setNumberIsValid] = useState();
   const [enteredMonth, setEnteredMonth] = useState('');
   const [monthIsValid, setMonthIsValid] = useState('');
+  const [enteredYear, setEnteredYear] = useState('');
+  const [yearIsValid, setYearIsValid] = useState('');
 
   const nameChangeHandler = (e) => {
     setEnteredName(e.target.value.toUpperCase());
 
-    //validate name
+    //validate
   };
 
   const validateNameHandler = (e) => {
@@ -25,7 +29,7 @@ const UserDataForm = (props) => {
   const numberChangeHandler = (e) => {
     setEnteredNumber(e.target.value);
 
-    //validate number
+    //validate
   };
 
   const validateNumberHandler = (e) => {
@@ -39,12 +43,30 @@ const UserDataForm = (props) => {
   const monthChangeHandler = (e) => {
     setEnteredMonth(e.target.value);
 
-    //validate number
+    //validate
   };
 
   const validateMonthHandler = (e) => {
+    const numberRegex = /^[0-9]+$/;
     setMonthIsValid(
-      !isNaN(enteredMonth) && enteredMonth > 0 && enteredMonth < 13
+      numberRegex.test(enteredMonth) &&
+        parseInt(enteredMonth) > 0 &&
+        parseInt(enteredMonth) < 13
+    );
+  };
+
+  const yearChangeHandler = (e) => {
+    setEnteredYear(e.target.value);
+
+    //validate
+  };
+
+  const validateYearHandler = (e) => {
+    const numberRegex = /^[0-9]+$/;
+    setYearIsValid(
+      numberRegex.test(enteredYear) &&
+        parseInt(enteredYear) > 22 &&
+        parseInt(enteredYear) < 31
     );
   };
 
@@ -92,6 +114,8 @@ const UserDataForm = (props) => {
               id="user-data-year"
               maxLength="2"
               placeholder="YY"
+              onChange={yearChangeHandler}
+              onBlur={validateYearHandler}
             />
           </div>
         </div>
@@ -101,8 +125,6 @@ const UserDataForm = (props) => {
             type="text"
             className={classes['data-input']}
             id="user-data-cvc"
-            min="1"
-            max="12"
             maxLength="3"
             placeholder="e.g. 123"
           />
