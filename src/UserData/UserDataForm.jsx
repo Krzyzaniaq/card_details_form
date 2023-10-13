@@ -7,6 +7,8 @@ const UserDataForm = (props) => {
   const [nameIsValid, setNameIsValid] = useState();
   const [enteredNumber, setEnteredNumber] = useState('');
   const [numberIsValid, setNumberIsValid] = useState();
+  const [enteredMonth, setEnteredMonth] = useState('');
+  const [monthIsValid, setMonthIsValid] = useState('');
 
   const nameChangeHandler = (e) => {
     setEnteredName(e.target.value.toUpperCase());
@@ -31,6 +33,18 @@ const UserDataForm = (props) => {
     setNumberIsValid(
       numberRegex.test(enteredNumber.trim()) &&
         enteredNumber.trim().length === 16
+    );
+  };
+
+  const monthChangeHandler = (e) => {
+    setEnteredMonth(e.target.value);
+
+    //validate number
+  };
+
+  const validateMonthHandler = (e) => {
+    setMonthIsValid(
+      !isNaN(enteredMonth) && enteredMonth > 0 && enteredMonth < 13
     );
   };
 
@@ -69,13 +83,13 @@ const UserDataForm = (props) => {
               id="user-data-month"
               placeholder="MM"
               maxLength="2"
+              onChange={monthChangeHandler}
+              onBlur={validateMonthHandler}
             />
             <input
               type="text"
               className={classes['data-input']}
               id="user-data-year"
-              min="2023"
-              max="2030"
               maxLength="2"
               placeholder="YY"
             />
