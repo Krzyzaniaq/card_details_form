@@ -10,9 +10,13 @@ const UserDataForm = (props) => {
   const [enteredNumber, setEnteredNumber] = useState('');
   const [numberIsValid, setNumberIsValid] = useState();
   const [enteredMonth, setEnteredMonth] = useState('');
-  const [monthIsValid, setMonthIsValid] = useState('');
+  const [monthIsValid, setMonthIsValid] = useState();
   const [enteredYear, setEnteredYear] = useState('');
-  const [yearIsValid, setYearIsValid] = useState('');
+  const [yearIsValid, setYearIsValid] = useState();
+  const [enteredCvc, setEnteredCvc] = useState('');
+  const [cvcIsValid, setCvcIsValid] = useState('');
+
+  const numberRegex = /^[0-9]+$/;
 
   const nameChangeHandler = (e) => {
     setEnteredName(e.target.value.toUpperCase());
@@ -33,7 +37,6 @@ const UserDataForm = (props) => {
   };
 
   const validateNumberHandler = (e) => {
-    const numberRegex = /^[0-9]+$/;
     setNumberIsValid(
       numberRegex.test(enteredNumber.trim()) &&
         enteredNumber.trim().length === 16
@@ -47,11 +50,11 @@ const UserDataForm = (props) => {
   };
 
   const validateMonthHandler = (e) => {
-    const numberRegex = /^[0-9]+$/;
     setMonthIsValid(
       numberRegex.test(enteredMonth) &&
         parseInt(enteredMonth) > 0 &&
-        parseInt(enteredMonth) < 13
+        parseInt(enteredMonth) < 13 &&
+        enteredMonth.length === 2
     );
   };
 
@@ -62,12 +65,21 @@ const UserDataForm = (props) => {
   };
 
   const validateYearHandler = (e) => {
-    const numberRegex = /^[0-9]+$/;
     setYearIsValid(
       numberRegex.test(enteredYear) &&
         parseInt(enteredYear) > 22 &&
         parseInt(enteredYear) < 31
     );
+  };
+
+  const cvcChangeHandler = (e) => {
+    setEnteredCvc(e.target.value);
+
+    //validate
+  };
+
+  const validateCvcHandler = (e) => {
+    setCvcIsValid(numberRegex.test(enteredCvc) & (enteredCvc.length === 3));
   };
 
   return (
@@ -127,6 +139,8 @@ const UserDataForm = (props) => {
             id="user-data-cvc"
             maxLength="3"
             placeholder="e.g. 123"
+            onChange={cvcChangeHandler}
+            onBlur={validateCvcHandler}
           />
         </div>
       </div>
