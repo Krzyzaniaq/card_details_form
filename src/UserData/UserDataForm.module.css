@@ -22,11 +22,27 @@
     font-size: 1rem;
     border-radius: 8px;
     padding: 10px;
+    outline: none;
+    background: none;
 }
+
+.data-input:focus {
+    outline: none;
+    border: 1px solid transparent;
+    /* border-image: linear-gradient(to right, hsl(249, 99%, 64%), hsl(278, 93%, 30%)) 1; */
+    background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, hsl(249, 99%, 64%), hsl(278, 93%, 30%)) border-box;
+}
+
 
 .data-input::placeholder {
     color: hsl(270, 3%, 87%);
     font-weight: 600;
+}
+
+.data-input.invalid {
+    background: none;
+    border-color: hsl(0, 100%, 66%);
 }
 
 .data-date-cvc {

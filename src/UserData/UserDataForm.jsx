@@ -26,9 +26,7 @@ const UserDataForm = (props) => {
   };
 
   const validateNameHandler = (e) => {
-    setNameIsValid(
-      enteredName.includes(' ') & (enteredName.trim().length > 10)
-    );
+    setNameIsValid(enteredName.includes(' ') && enteredName.trim().length > 10);
   };
 
   const numberChangeHandler = (e) => {
@@ -97,7 +95,9 @@ const UserDataForm = (props) => {
           </label>
           <input
             type="text"
-            className={classes['data-input']}
+            className={`${classes['data-input']} ${
+              nameIsValid === false ? classes.invalid : ''
+            }`}
             id="user-data-name"
             placeholder="e.g. Jane Appleseed"
             onChange={nameChangeHandler}
@@ -110,7 +110,9 @@ const UserDataForm = (props) => {
           </label>
           <input
             type="text"
-            className={classes['data-input']}
+            className={`${classes['data-input']} ${
+              numberIsValid === false ? classes.invalid : ''
+            }`}
             id="user-data-number"
             placeholder="e.g. 1234 5678 9123 0000"
             onChange={numberChangeHandler}
@@ -129,7 +131,9 @@ const UserDataForm = (props) => {
             <div>
               <input
                 type="text"
-                className={classes['data-input']}
+                className={`${classes['data-input']} ${
+                  monthIsValid === false ? classes.invalid : ''
+                }`}
                 id="user-data-month"
                 placeholder="MM"
                 maxLength="2"
@@ -138,7 +142,9 @@ const UserDataForm = (props) => {
               />
               <input
                 type="text"
-                className={classes['data-input']}
+                className={`${classes['data-input']} ${
+                  yearIsValid === false ? classes.invalid : ''
+                }`}
                 id="user-data-year"
                 maxLength="2"
                 placeholder="YY"
@@ -153,7 +159,9 @@ const UserDataForm = (props) => {
             </label>
             <input
               type="text"
-              className={classes['data-input']}
+              className={`${classes['data-input']} ${
+                cvcIsValid === false ? classes.invalid : ''
+              }`}
               id="user-data-cvc"
               maxLength="3"
               placeholder="e.g. 123"
