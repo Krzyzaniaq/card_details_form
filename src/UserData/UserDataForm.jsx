@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Button from '../UI/Button';
 
 // dodac id i label do inputow
 
@@ -82,69 +83,88 @@ const UserDataForm = (props) => {
     setCvcIsValid(numberRegex.test(enteredCvc) & (enteredCvc.length === 3));
   };
 
-  return (
-    <div className={classes['data-form']}>
-      <span>
-        <h4 className={classes.text}>CARDHOLDER NAME</h4>
-        <input
-          type="text"
-          className={classes['data-input']}
-          id="user-data-name"
-          placeholder="e.g. Jane Appleseed"
-          onChange={nameChangeHandler}
-          onBlur={validateNameHandler}
-        />
-      </span>
-      <span>
-        <h4 className={classes.text}>CARD NUMBER</h4>
-        <input
-          type="text"
-          className={classes['data-input']}
-          id="user-data-number"
-          placeholder="e.g. 1234 5678 9123 0000"
-          onChange={numberChangeHandler}
-          onBlur={validateNumberHandler}
-        />
-      </span>
+  const submitHandler = (e) => {
+    e.preventDefault();
+    // tutaj state w górę
+  };
 
-      <div className={classes['data-date-cvc']}>
-        <div className={classes['data-date-inputs']}>
-          <h4 className={classes.text}>EXP. DATE M/Y</h4>
-          <div>
-            <input
-              type="text"
-              className={classes['data-input']}
-              id="user-data-month"
-              placeholder="MM"
-              maxLength="2"
-              onChange={monthChangeHandler}
-              onBlur={validateMonthHandler}
-            />
-            <input
-              type="text"
-              className={classes['data-input']}
-              id="user-data-year"
-              maxLength="2"
-              placeholder="YY"
-              onChange={yearChangeHandler}
-              onBlur={validateYearHandler}
-            />
-          </div>
-        </div>
-        <div className={classes['data-cvc-input']}>
-          <h4 className={classes.text}>CVC</h4>
+  return (
+    <>
+      <form className={classes['data-form']} onSubmit={submitHandler}>
+        <span>
+          <label htmlFor="user-data-name" className={classes.text}>
+            CARDHOLDER NAME
+          </label>
           <input
             type="text"
             className={classes['data-input']}
-            id="user-data-cvc"
-            maxLength="3"
-            placeholder="e.g. 123"
-            onChange={cvcChangeHandler}
-            onBlur={validateCvcHandler}
+            id="user-data-name"
+            placeholder="e.g. Jane Appleseed"
+            onChange={nameChangeHandler}
+            onBlur={validateNameHandler}
           />
+        </span>
+        <span>
+          <label htmlFor="user-data-number" className={classes.text}>
+            CARD NUMBER
+          </label>
+          <input
+            type="text"
+            className={classes['data-input']}
+            id="user-data-number"
+            placeholder="e.g. 1234 5678 9123 0000"
+            onChange={numberChangeHandler}
+            onBlur={validateNumberHandler}
+          />
+        </span>
+
+        <div className={classes['data-date-cvc']}>
+          <div className={classes['data-date-inputs']}>
+            <label
+              htmlFor="user-data-month user-data-year"
+              className={classes.text}
+            >
+              EXP. DATE M/Y
+            </label>
+            <div>
+              <input
+                type="text"
+                className={classes['data-input']}
+                id="user-data-month"
+                placeholder="MM"
+                maxLength="2"
+                onChange={monthChangeHandler}
+                onBlur={validateMonthHandler}
+              />
+              <input
+                type="text"
+                className={classes['data-input']}
+                id="user-data-year"
+                maxLength="2"
+                placeholder="YY"
+                onChange={yearChangeHandler}
+                onBlur={validateYearHandler}
+              />
+            </div>
+          </div>
+          <div className={classes['data-cvc-input']}>
+            <label htmlFor="user-data-cvc" className={classes.text}>
+              CVC
+            </label>
+            <input
+              type="text"
+              className={classes['data-input']}
+              id="user-data-cvc"
+              maxLength="3"
+              placeholder="e.g. 123"
+              onChange={cvcChangeHandler}
+              onBlur={validateCvcHandler}
+            />
+          </div>
         </div>
-      </div>
-    </div>
+        <Button type="submit">Confirm</Button>
+      </form>
+    </>
   );
 };
 
