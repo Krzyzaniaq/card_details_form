@@ -1,15 +1,52 @@
-import { useState } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import Button from '../UI/Button';
 
 // dodac id i label do inputow
 
 import classes from './UserDataForm.module.css';
 
+const numberRegex = /^[0-9]+$/;
+
+const nameReducer = (state, action) => {
+  if (action.type === 'USER_INPUT') {
+    return {
+      value: action.val,
+      isValid: action.val.includes(' ') && action.val.trim().length > 6,
+    };
+  }
+  if (action.type === 'INPUT_BLUR') {
+    return {
+      value: state.value,
+      isValid: state.value.includes(' ') && state.value.trim().length > 6,
+    };
+  }
+  return { value: '', isValid: false };
+};
+
+const numberReducer = (state, action) => {
+  if (action.type === 'USER_INPUT') {
+    return {
+      value: action.val,
+      isValid:
+        numberRegex.test(action.val.trim()) && action.val.trim().length === 16,
+    };
+  }
+  if (action.type === 'INPUT_BLUR') {
+    return {
+      value: state.value,
+      isValid:
+        numberRegex.test(state.value.trim()) &&
+        state.value.trim().length === 16,
+    };
+  }
+  return { value: '', isValid: false };
+};
+
 const UserDataForm = (props) => {
-  const [enteredName, setEnteredName] = useState('');
-  const [nameIsValid, setNameIsValid] = useState();
-  const [enteredNumber, setEnteredNumber] = useState('');
-  const [numberIsValid, setNumberIsValid] = useState();
+  // const [enteredName, setEnteredName] = useState('');
+  // const [nameIsValid, setNameIsValid] = useState();
+  // const [enteredNumber, setEnteredNumber] = useState('');
+  // const [numberIsValid, setNumberIsValid] = useState();
   const [enteredMonth, setEnteredMonth] = useState('');
   const [monthIsValid, setMonthIsValid] = useState();
   const [enteredYear, setEnteredYear] = useState('');
@@ -17,29 +54,34 @@ const UserDataForm = (props) => {
   const [enteredCvc, setEnteredCvc] = useState('');
   const [cvcIsValid, setCvcIsValid] = useState('');
 
-  const numberRegex = /^[0-9]+$/;
+  const [nameState, dispatchName] = useReducer(nameReducer, {
+    value: '',
+    isValid: null,
+  });
+
+  const [numberState, dispatchNumber] = useReducer(numberReducer, {
+    value: '',
+    isValid: null,
+  });
 
   const nameChangeHandler = (e) => {
-    setEnteredName(e.target.value.toUpperCase());
+    dispatchName({ type: 'USER_INPUT', val: e.target.value });
 
     //validate
   };
 
   const validateNameHandler = (e) => {
-    setNameIsValid(enteredName.includes(' ') && enteredName.trim().length > 10);
+    dispatchName({ type: 'INPUT_BLUR' });
   };
 
   const numberChangeHandler = (e) => {
-    setEnteredNumber(e.target.value);
+    dispatchNumber({ type: 'USER_INPUT', val: e.target.value });
 
     //validate
   };
 
   const validateNumberHandler = (e) => {
-    setNumberIsValid(
-      numberRegex.test(enteredNumber.trim()) &&
-        enteredNumber.trim().length === 16
-    );
+    dispatchNumber({ type: 'INPUT_BLUR' });
   };
 
   const monthChangeHandler = (e) => {
@@ -78,12 +120,13 @@ const UserDataForm = (props) => {
   };
 
   const validateCvcHandler = (e) => {
-    setCvcIsValid(numberRegex.test(enteredCvc) & (enteredCvc.length === 3));
+    setCvcIsValid(numberRegex.test(enteredCvc) && enteredCvc.length === 3);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     // tutaj state w górę
+    props.onData(nameState.value, numberState.value);
   };
 
   return (
@@ -96,10 +139,11 @@ const UserDataForm = (props) => {
           <input
             type="text"
             className={`${classes['data-input']} ${
-              nameIsValid === false ? classes.invalid : ''
+              nameState.isValid === false ? classes.invalid : ''
             }`}
             id="user-data-name"
             placeholder="e.g. Jane Appleseed"
+            value={nameState.value}
             onChange={nameChangeHandler}
             onBlur={validateNameHandler}
           />
@@ -111,10 +155,11 @@ const UserDataForm = (props) => {
           <input
             type="text"
             className={`${classes['data-input']} ${
-              numberIsValid === false ? classes.invalid : ''
+              numberState.isValid === false ? classes.invalid : ''
             }`}
             id="user-data-number"
             placeholder="e.g. 1234 5678 9123 0000"
+            value={numberState.value}
             onChange={numberChangeHandler}
             onBlur={validateNumberHandler}
           />

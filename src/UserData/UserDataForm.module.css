@@ -34,7 +34,6 @@
               linear-gradient(to right, hsl(249, 99%, 64%), hsl(278, 93%, 30%)) border-box;
 }
 
-
 .data-input::placeholder {
     color: hsl(270, 3%, 87%);
     font-weight: 600;
