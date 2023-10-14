@@ -66,6 +66,30 @@ const monthReducer = (state, action) => {
   return { value: '', isValid: false };
 };
 
+const yearReducer = (state, action) => {
+  if (action.type === 'USER_INPUT') {
+    return {
+      value: action.val,
+      isValid:
+        numberRegex.test(action.val) &&
+        parseInt(action.val) > 22 &&
+        parseInt(action.val) < 31 &&
+        action.val.length === 2,
+    };
+  }
+  if (action.type === 'INPUT_BLUR') {
+    return {
+      value: state.value,
+      isValid:
+        numberRegex.test(state.value) &&
+        parseInt(state.value) > 22 &&
+        parseInt(state.value) < 31 &&
+        state.value.length === 2,
+    };
+  }
+  return { value: '', isValid: false };
+};
+
 const UserDataForm = (props) => {
   // const [enteredName, setEnteredName] = useState('');
   // const [nameIsValid, setNameIsValid] = useState();
@@ -93,10 +117,13 @@ const UserDataForm = (props) => {
     isValid: null,
   });
 
+  const [yearState, dispatchYear] = useReducer(yearReducer, {
+    value: '',
+    isValid: null,
+  });
+
   const nameChangeHandler = (e) => {
     dispatchName({ type: 'USER_INPUT', val: e.target.value });
-
-    //validate
   };
 
   const validateNameHandler = (e) => {
@@ -105,8 +132,6 @@ const UserDataForm = (props) => {
 
   const numberChangeHandler = (e) => {
     dispatchNumber({ type: 'USER_INPUT', val: e.target.value });
-
-    //validate
   };
 
   const validateNumberHandler = (e) => {
@@ -115,8 +140,6 @@ const UserDataForm = (props) => {
 
   const monthChangeHandler = (e) => {
     dispatchMonth({ type: 'USER_INPUT', val: e.target.value });
-
-    //validate
   };
 
   const validateMonthHandler = (e) => {
@@ -124,17 +147,11 @@ const UserDataForm = (props) => {
   };
 
   const yearChangeHandler = (e) => {
-    setEnteredYear(e.target.value);
-
-    //validate
+    dispatchYear({ type: 'USER_INPUT', val: e.target.value });
   };
 
   const validateYearHandler = (e) => {
-    setYearIsValid(
-      numberRegex.test(enteredYear) &&
-        parseInt(enteredYear) > 22 &&
-        parseInt(enteredYear) < 31
-    );
+    dispatchYear({ type: 'INPUT_BLUR' });
   };
 
   const cvcChangeHandler = (e) => {
@@ -206,18 +223,19 @@ const UserDataForm = (props) => {
                 id="user-data-month"
                 placeholder="MM"
                 maxLength="2"
-                value={monthState}
+                value={monthState.value}
                 onChange={monthChangeHandler}
                 onBlur={validateMonthHandler}
               />
               <input
                 type="text"
                 className={`${classes['data-input']} ${
-                  yearIsValid === false ? classes.invalid : ''
+                  yearState.isValid === false ? classes.invalid : ''
                 }`}
                 id="user-data-year"
                 maxLength="2"
                 placeholder="YY"
+                value={yearState.value}
                 onChange={yearChangeHandler}
                 onBlur={validateYearHandler}
               />
