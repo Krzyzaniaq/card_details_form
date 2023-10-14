@@ -90,6 +90,22 @@ const yearReducer = (state, action) => {
   return { value: '', isValid: false };
 };
 
+const cvcReducer = (state, action) => {
+  if (action.type === 'USER_INPUT') {
+    return {
+      value: action.val,
+      isValid: numberRegex.test(action.val) && action.val.length === 3,
+    };
+  }
+  if (action.type === 'INPUT_BLUR') {
+    return {
+      value: state.value,
+      isValid: numberRegex.test(state.value) && state.value.length === 3,
+    };
+  }
+  return { value: '', isValid: false };
+};
+
 const UserDataForm = (props) => {
   // const [enteredName, setEnteredName] = useState('');
   // const [nameIsValid, setNameIsValid] = useState();
@@ -118,6 +134,11 @@ const UserDataForm = (props) => {
   });
 
   const [yearState, dispatchYear] = useReducer(yearReducer, {
+    value: '',
+    isValid: null,
+  });
+
+  const [cvcState, dispatchCvc] = useReducer(cvcReducer, {
     value: '',
     isValid: null,
   });
@@ -155,13 +176,11 @@ const UserDataForm = (props) => {
   };
 
   const cvcChangeHandler = (e) => {
-    setEnteredCvc(e.target.value);
-
-    //validate
+    dispatchCvc({ type: 'USER_INPUT', val: e.target.value });
   };
 
   const validateCvcHandler = (e) => {
-    setCvcIsValid(numberRegex.test(enteredCvc) && enteredCvc.length === 3);
+    dispatchCvc({ type: 'INPUT_BLUR' });
   };
 
   const submitHandler = (e) => {
@@ -248,11 +267,12 @@ const UserDataForm = (props) => {
             <input
               type="text"
               className={`${classes['data-input']} ${
-                cvcIsValid === false ? classes.invalid : ''
+                cvcState.isValid === false ? classes.invalid : ''
               }`}
               id="user-data-cvc"
               maxLength="3"
               placeholder="e.g. 123"
+              value={cvcState.value}
               onChange={cvcChangeHandler}
               onBlur={validateCvcHandler}
             />
