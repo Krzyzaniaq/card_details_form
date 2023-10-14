@@ -144,21 +144,27 @@ const UserDataForm = (props) => {
     isValid: null,
   });
 
+  const { isValid: nameIsValid } = nameState;
+  const { isValid: numberIsValid } = numberState;
+  const { isValid: monthIsValid } = monthState;
+  const { isValid: yearIsValid } = yearState;
+  const { isValid: cvcIsValid } = cvcState;
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       setFormIsValid(
-        nameState.isValid &&
-          numberState.isValid &&
-          monthState.isValid &&
-          yearState.isValid &&
-          cvcState.isValid
+        nameIsValid &&
+          numberIsValid &&
+          monthIsValid &&
+          yearIsValid &&
+          cvcIsValid
       );
     }, 500);
 
     return () => {
       clearTimeout(identifier);
     };
-  }, [nameState, numberState, monthState, yearState, cvcState]);
+  }, [nameIsValid, numberIsValid, monthIsValid, yearIsValid, cvcIsValid]);
 
   const nameChangeHandler = (e) => {
     dispatchName({ type: 'USER_INPUT', val: e.target.value });
