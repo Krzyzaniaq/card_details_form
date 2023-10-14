@@ -6,10 +6,12 @@
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
+    border: none;
 }
 
 .btn:hover {
-    background: linear-gradient(hsl(249, 99%, 64%), hsl(278, 94%, 30%));
+    background: linear-gradient(to right, hsl(249, 99%, 64%), hsl(278, 94%, 30%));
+    border: none;
 }
 
 .btn:disabled {
