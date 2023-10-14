@@ -113,10 +113,11 @@ const UserDataForm = (props) => {
   // const [numberIsValid, setNumberIsValid] = useState();
   // const [enteredMonth, setEnteredMonth] = useState('');
   // const [monthIsValid, setMonthIsValid] = useState();
-  const [enteredYear, setEnteredYear] = useState('');
-  const [yearIsValid, setYearIsValid] = useState();
-  const [enteredCvc, setEnteredCvc] = useState('');
-  const [cvcIsValid, setCvcIsValid] = useState('');
+  // const [enteredYear, setEnteredYear] = useState('');
+  // const [yearIsValid, setYearIsValid] = useState();
+  // const [enteredCvc, setEnteredCvc] = useState('');
+  // const [cvcIsValid, setCvcIsValid] = useState('');
+  const [formIsValid, setFormIsValid] = useState(false);
 
   const [nameState, dispatchName] = useReducer(nameReducer, {
     value: '',
@@ -142,6 +143,22 @@ const UserDataForm = (props) => {
     value: '',
     isValid: null,
   });
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setFormIsValid(
+        nameState.isValid &&
+          numberState.isValid &&
+          monthState.isValid &&
+          yearState.isValid &&
+          cvcState.isValid
+      );
+    }, 500);
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [nameState, numberState, monthState, yearState, cvcState]);
 
   const nameChangeHandler = (e) => {
     dispatchName({ type: 'USER_INPUT', val: e.target.value });
@@ -278,7 +295,9 @@ const UserDataForm = (props) => {
             />
           </div>
         </div>
-        <Button type="submit">Confirm</Button>
+        <Button type="submit" disabled={!formIsValid}>
+          Confirm
+        </Button>
       </form>
     </>
   );
