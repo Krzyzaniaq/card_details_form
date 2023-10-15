@@ -1,8 +1,5 @@
 import { useState, useEffect, useReducer } from 'react';
 import Button from '../UI/Button';
-
-// dodac id i label do inputow
-
 import classes from './UserDataForm.module.css';
 
 const numberRegex = /^[0-9]+$/;
@@ -118,13 +115,6 @@ const UserDataForm = (props) => {
   // const [enteredCvc, setEnteredCvc] = useState('');
   // const [cvcIsValid, setCvcIsValid] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
-  const [formData, setFormData] = useState({
-    uName: '',
-    uNumber: '',
-    uMonth: '',
-    uYear: '',
-    uCvc: '',
-  });
 
   const [nameState, dispatchName] = useReducer(nameReducer, {
     value: '',
@@ -174,7 +164,7 @@ const UserDataForm = (props) => {
   }, [nameIsValid, numberIsValid, monthIsValid, yearIsValid, cvcIsValid]);
 
   useEffect(() => {
-    setFormData({
+    props.onData({
       uName: nameState.value,
       uNumber: numberState.value,
       uMonth: monthState.value,
@@ -232,7 +222,6 @@ const UserDataForm = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     // tutaj state w górę
-    props.onData(nameState.value, numberState.value);
   };
 
   return (

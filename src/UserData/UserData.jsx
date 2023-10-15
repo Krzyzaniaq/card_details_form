@@ -3,8 +3,10 @@ import UserDataComplete from './UserDataComplete';
 
 import classes from './UserData.module.css';
 
-const UserData = () => {
-  const dataChangeHandler = () => {};
+const UserData = (props) => {
+  const dataChangeHandler = (data) => {
+    props.onFormData(data);
+  };
 
   return (
     <div className={classes['user-data']}>
