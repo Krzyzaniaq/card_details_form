@@ -25,10 +25,10 @@ const numberReducer = (state, action) => {
     let inputValue = action.val.replace(/\s/g, '');
     let formattedValue = inputValue.replace(/(.{4})/g, '$1 ');
     inputValue = formattedValue.trim();
+    const testValue = inputValue.replace(/\s/g, '');
     return {
       value: inputValue,
-      isValid:
-        numberRegex.test(action.val.trim()) && action.val.trim().length === 16,
+      isValid: numberRegex.test(testValue) && testValue.length === 16,
     };
   }
   if (action.type === 'INPUT_BLUR') {
