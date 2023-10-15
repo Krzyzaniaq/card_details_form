@@ -22,8 +22,11 @@ const nameReducer = (state, action) => {
 
 const numberReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
+    let inputValue = action.val.replace(/\s/g, '');
+    let formattedValue = inputValue.replace(/(.{4})/g, '$1 ');
+    inputValue = formattedValue.trim();
     return {
-      value: action.val,
+      value: inputValue,
       isValid:
         numberRegex.test(action.val.trim()) && action.val.trim().length === 16,
     };
@@ -255,6 +258,7 @@ const UserDataForm = (props) => {
             id="user-data-number"
             placeholder="e.g. 1234 5678 9123 0000"
             value={numberState.value}
+            maxLength="19"
             onChange={numberChangeHandler}
             onBlur={validateNumberHandler}
           />
