@@ -118,6 +118,13 @@ const UserDataForm = (props) => {
   // const [enteredCvc, setEnteredCvc] = useState('');
   // const [cvcIsValid, setCvcIsValid] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
+  const [formData, setFormData] = useState({
+    uName: '',
+    uNumber: '',
+    uMonth: '',
+    uYear: '',
+    uCvc: '',
+  });
 
   const [nameState, dispatchName] = useReducer(nameReducer, {
     value: '',
@@ -165,6 +172,22 @@ const UserDataForm = (props) => {
       clearTimeout(identifier);
     };
   }, [nameIsValid, numberIsValid, monthIsValid, yearIsValid, cvcIsValid]);
+
+  useEffect(() => {
+    setFormData({
+      uName: nameState.value,
+      uNumber: numberState.value,
+      uMonth: monthState.value,
+      uYear: yearState.value,
+      uCvc: cvcState.value,
+    });
+  }, [
+    nameState.value,
+    numberState.value,
+    monthState.value,
+    yearState.value,
+    cvcState.value,
+  ]);
 
   const nameChangeHandler = (e) => {
     dispatchName({ type: 'USER_INPUT', val: e.target.value });
