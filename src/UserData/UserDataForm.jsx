@@ -8,13 +8,19 @@ const nameReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
     return {
       value: action.val,
-      isValid: action.val.includes(' ') && action.val.trim().length > 6,
+      isValid:
+        action.val.includes(' ') &&
+        action.val.trim().length > 6 &&
+        numberRegex.test(action.val),
     };
   }
   if (action.type === 'INPUT_BLUR') {
     return {
       value: state.value,
-      isValid: state.value.includes(' ') && state.value.trim().length > 6,
+      isValid:
+        state.value.includes(' ') &&
+        state.value.trim().length > 6 &&
+        numberRegex.test(state.value),
     };
   }
   return { value: '', isValid: false };
