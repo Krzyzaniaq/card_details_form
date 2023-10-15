@@ -17,7 +17,7 @@ function App() {
   };
   return (
     <div className={classes.app}>
-      <Card />
+      <Card formData={formData} />
       <UserData onFormData={formDataHandler} />
     </div>
   );
