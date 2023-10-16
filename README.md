@@ -1,3 +1,4 @@
 # React + Vite
 
-Card Details Form project from Frontend Mentor.
+Card Details Form challenge from Frontend Mentor.
+Dev version
