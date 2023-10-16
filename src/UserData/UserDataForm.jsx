@@ -8,7 +8,7 @@ const letterRegex = /[0-9]/;
 const nameReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
     return {
-      value: action.val,
+      value: action.val.toUpperCase(),
       isValid:
         action.val.includes(' ') &&
         action.val.length > 6 &&
