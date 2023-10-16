@@ -7,16 +7,21 @@
     gap: clamp(1.5rem, 0.75rem + 2vw, 2rem);
 }
 
+.data-form span {
+    display: flex;
+    flex-direction: column;
+}
+
 .text {
     color: hsl(278, 68%, 11%);
     margin-bottom: 8px;
-    font-size: 0.7rem;
+    font-size: clamp(0.7rem, 0.4rem + 0.3vw, 1.2rem);
     letter-spacing: 2px;
 }
 
 .message {
     color: hsl(0, 100%, 66%);
-    font-size: 0.6rem;
+    font-size: clamp(0.6rem, 0.4rem + 0.3vw, 1rem);
     letter-spacing: 1px;
     margin: 0.2rem 0 0 0;
     width: 50%;
@@ -25,9 +30,9 @@
 .data-input {
     border: 1px solid hsl(270, 3%, 87%);
     width: 100%;
-    font-size: 1rem;
+    font-size: clamp(1rem, 0.8rem + 0.3vw, 1.4rem);
     border-radius: 8px;
-    padding: 10px;
+    padding: clamp(0.625rem, 0.4rem + 0.4vw, 1rem);
     outline: none;
     background: none;
 }
@@ -43,6 +48,7 @@
 .data-input::placeholder {
     color: hsl(270, 3%, 87%);
     font-weight: 600;
+    font-size: clamp(0.8rem, 0.4rem + 0.5vw, 2rem);
 }
 
 .data-input.invalid {
@@ -55,7 +61,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 20px;
+    gap: clamp(1.2rem, 0.8rem + 1vw, 1.6rem);
+}
+
+.data-cvc-input {
+    display: flex;
+    flex-direction: column;
 }
 
 .data-date-inputs {
@@ -68,9 +79,5 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 5px;
-}
-
-@media (max-width: 1100px) {
-
+    gap: 0.3rem;
 }
