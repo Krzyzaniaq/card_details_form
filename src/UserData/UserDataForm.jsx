@@ -16,12 +16,16 @@ const nameReducer = (state, action) => {
     };
   }
   if (action.type === 'INPUT_BLUR') {
+    let message = '';
+    if (state.value === '') message = `Can't be blank.`;
+    if (letterRegex.test(state.value)) message = `Wrong format. Letters only.`;
     return {
       value: state.value,
       isValid:
         state.value.includes(' ') &&
         state.value.length > 6 &&
         !letterRegex.test(state.value),
+      message: message,
     };
   }
   return { value: '', isValid: false };
@@ -43,9 +47,16 @@ const numberReducer = (state, action) => {
     let formattedStateValue = stateValue.replace(/(.{4})/g, '$1 ');
     stateValue = formattedStateValue.trim();
     const testStateValue = stateValue.replace(/\s/g, '');
+    let message = '';
+    if (testStateValue.length !== 16) message = `Must be 16-digit long.`;
+    if (!numberRegex.test(testStateValue))
+      message = `Wrong format. Numbers only.`;
+    if (state.value === '') message = `Can't be blank.`;
+
     return {
       value: state.value,
       isValid: numberRegex.test(testStateValue) && testStateValue.length === 16,
+      message: message,
     };
   }
   return { value: '', isValid: false };
@@ -63,6 +74,11 @@ const monthReducer = (state, action) => {
     };
   }
   if (action.type === 'INPUT_BLUR') {
+    let message = '';
+    if (state.value < 0 || state.value > 13 || state.value.length !== 2)
+      message = `Must be between 01-12.`;
+    if (!numberRegex.test(state.value)) message = `Wrong format. Only digits`;
+    if (state.value === '') message = `Can't be blank.`;
     return {
       value: state.value,
       isValid:
@@ -70,6 +86,7 @@ const monthReducer = (state, action) => {
         parseInt(state.value) > 0 &&
         parseInt(state.value) < 13 &&
         state.value.length === 2,
+      message: message,
     };
   }
   return { value: '', isValid: false };
@@ -87,6 +104,11 @@ const yearReducer = (state, action) => {
     };
   }
   if (action.type === 'INPUT_BLUR') {
+    let message = '';
+    if (state.value < 23 || state.value > 30 || state.value.length !== 2)
+      message = `Must be between 23-30.`;
+    if (!numberRegex.test(state.value)) message = `Wrong format. Only digits`;
+    if (state.value === '') message = `Can't be blank.`;
     return {
       value: state.value,
       isValid:
@@ -94,6 +116,7 @@ const yearReducer = (state, action) => {
         parseInt(state.value) > 22 &&
         parseInt(state.value) < 31 &&
         state.value.length === 2,
+      message: message,
     };
   }
   return { value: '', isValid: false };
@@ -107,9 +130,14 @@ const cvcReducer = (state, action) => {
     };
   }
   if (action.type === 'INPUT_BLUR') {
+    let message = '';
+    if (state.value.length < 3) message = `Must be 3-digits long.`;
+    if (!numberRegex.test(state.value)) message = `Wrong format. Only digits`;
+    if (state.value === '') message = `Can't be blank.`;
     return {
       value: state.value,
       isValid: numberRegex.test(state.value) && state.value.length === 3,
+      message: message,
     };
   }
   return { value: '', isValid: false };
@@ -121,26 +149,31 @@ const UserDataForm = (props) => {
   const [nameState, dispatchName] = useReducer(nameReducer, {
     value: '',
     isValid: null,
+    message: '',
   });
 
   const [numberState, dispatchNumber] = useReducer(numberReducer, {
     value: '',
     isValid: null,
+    message: '',
   });
 
   const [monthState, dispatchMonth] = useReducer(monthReducer, {
     value: '',
     isValid: null,
+    message: '',
   });
 
   const [yearState, dispatchYear] = useReducer(yearReducer, {
     value: '',
     isValid: null,
+    message: '',
   });
 
   const [cvcState, dispatchCvc] = useReducer(cvcReducer, {
     value: '',
     isValid: null,
+    message: '',
   });
 
   const { isValid: nameIsValid } = nameState;
@@ -244,6 +277,7 @@ const UserDataForm = (props) => {
             onChange={nameChangeHandler}
             onBlur={validateNameHandler}
           />
+          <label>{nameState.message}</label>
         </span>
         <span>
           <label htmlFor="user-data-number" className={classes.text}>
@@ -261,6 +295,7 @@ const UserDataForm = (props) => {
             onChange={numberChangeHandler}
             onBlur={validateNumberHandler}
           />
+          <label>{numberState.message}</label>
         </span>
 
         <div className={classes['data-date-cvc']}>
@@ -297,6 +332,10 @@ const UserDataForm = (props) => {
                 onBlur={validateYearHandler}
               />
             </div>
+            <div>
+              <label>{monthState.message}</label>
+              <label>{yearState.message}</label>
+            </div>
           </div>
           <div className={classes['data-cvc-input']}>
             <label htmlFor="user-data-cvc" className={classes.text}>
@@ -314,6 +353,7 @@ const UserDataForm = (props) => {
               onChange={cvcChangeHandler}
               onBlur={validateCvcHandler}
             />
+            <label>{cvcState.message}</label>
           </div>
         </div>
         <Button type="submit" disabled={!formIsValid} onClick={submitHandler}>
