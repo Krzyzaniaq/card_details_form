@@ -17,8 +17,9 @@ const nameReducer = (state, action) => {
   }
   if (action.type === 'INPUT_BLUR') {
     let message = '';
+    if (state.value.length < 6) message = `Must be at least 6 characters long.`;
+    if (letterRegex.test(state.value)) message = `Wrong format, etters only.`;
     if (state.value === '') message = `Can't be blank.`;
-    if (letterRegex.test(state.value)) message = `Wrong format. Letters only.`;
     return {
       value: state.value,
       isValid:
@@ -50,7 +51,7 @@ const numberReducer = (state, action) => {
     let message = '';
     if (testStateValue.length !== 16) message = `Must be 16-digit long.`;
     if (!numberRegex.test(testStateValue))
-      message = `Wrong format. Numbers only.`;
+      message = `Wrong format, numbers only.`;
     if (state.value === '') message = `Can't be blank.`;
 
     return {
@@ -77,7 +78,7 @@ const monthReducer = (state, action) => {
     let message = '';
     if (state.value < 0 || state.value > 13 || state.value.length !== 2)
       message = `Must be between 01-12.`;
-    if (!numberRegex.test(state.value)) message = `Wrong format. Only digits`;
+    if (!numberRegex.test(state.value)) message = `Wrong format, numbers only.`;
     if (state.value === '') message = `Can't be blank.`;
     return {
       value: state.value,
@@ -107,7 +108,7 @@ const yearReducer = (state, action) => {
     let message = '';
     if (state.value < 23 || state.value > 30 || state.value.length !== 2)
       message = `Must be between 23-30.`;
-    if (!numberRegex.test(state.value)) message = `Wrong format. Only digits`;
+    if (!numberRegex.test(state.value)) message = `Wrong format, numbers only`;
     if (state.value === '') message = `Can't be blank.`;
     return {
       value: state.value,
@@ -132,7 +133,7 @@ const cvcReducer = (state, action) => {
   if (action.type === 'INPUT_BLUR') {
     let message = '';
     if (state.value.length < 3) message = `Must be 3-digits long.`;
-    if (!numberRegex.test(state.value)) message = `Wrong format. Only digits`;
+    if (!numberRegex.test(state.value)) message = `Wrong format, numbers only.`;
     if (state.value === '') message = `Can't be blank.`;
     return {
       value: state.value,
@@ -277,7 +278,7 @@ const UserDataForm = (props) => {
             onChange={nameChangeHandler}
             onBlur={validateNameHandler}
           />
-          <label>{nameState.message}</label>
+          <p className={classes.message}>{nameState.message}</p>
         </span>
         <span>
           <label htmlFor="user-data-number" className={classes.text}>
@@ -295,7 +296,7 @@ const UserDataForm = (props) => {
             onChange={numberChangeHandler}
             onBlur={validateNumberHandler}
           />
-          <label>{numberState.message}</label>
+          <p className={classes.message}>{numberState.message}</p>
         </span>
 
         <div className={classes['data-date-cvc']}>
@@ -333,8 +334,8 @@ const UserDataForm = (props) => {
               />
             </div>
             <div>
-              <label>{monthState.message}</label>
-              <label>{yearState.message}</label>
+              <p className={classes.message}>{monthState.message}</p>
+              <p className={classes.message}>{yearState.message}</p>
             </div>
           </div>
           <div className={classes['data-cvc-input']}>
@@ -353,7 +354,7 @@ const UserDataForm = (props) => {
               onChange={cvcChangeHandler}
               onBlur={validateCvcHandler}
             />
-            <label>{cvcState.message}</label>
+            <p className={classes.message}>{cvcState.message}</p>
           </div>
         </div>
         <Button type="submit" disabled={!formIsValid} onClick={submitHandler}>
