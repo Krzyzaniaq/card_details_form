@@ -116,16 +116,6 @@ const cvcReducer = (state, action) => {
 };
 
 const UserDataForm = (props) => {
-  // const [enteredName, setEnteredName] = useState('');
-  // const [nameIsValid, setNameIsValid] = useState();
-  // const [enteredNumber, setEnteredNumber] = useState('');
-  // const [numberIsValid, setNumberIsValid] = useState();
-  // const [enteredMonth, setEnteredMonth] = useState('');
-  // const [monthIsValid, setMonthIsValid] = useState();
-  // const [enteredYear, setEnteredYear] = useState('');
-  // const [yearIsValid, setYearIsValid] = useState();
-  // const [enteredCvc, setEnteredCvc] = useState('');
-  // const [cvcIsValid, setCvcIsValid] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [nameState, dispatchName] = useReducer(nameReducer, {
@@ -234,7 +224,6 @@ const UserDataForm = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     props.onFormSubmit(formIsValid);
-    // tutaj state w górę
   };
 
   return (
