@@ -3,6 +3,7 @@ import Button from '../UI/Button';
 import classes from './UserDataForm.module.css';
 
 const numberRegex = /^[0-9]+$/;
+const letterRegex = /[0-9]/;
 
 const nameReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
@@ -10,8 +11,8 @@ const nameReducer = (state, action) => {
       value: action.val,
       isValid:
         action.val.includes(' ') &&
-        action.val.trim().length > 6 &&
-        numberRegex.test(action.val),
+        action.val.length > 6 &&
+        !letterRegex.test(action.val),
     };
   }
   if (action.type === 'INPUT_BLUR') {
@@ -19,8 +20,8 @@ const nameReducer = (state, action) => {
       value: state.value,
       isValid:
         state.value.includes(' ') &&
-        state.value.trim().length > 6 &&
-        numberRegex.test(state.value),
+        state.value.length > 6 &&
+        !letterRegex.test(state.value),
     };
   }
   return { value: '', isValid: false };
@@ -38,11 +39,13 @@ const numberReducer = (state, action) => {
     };
   }
   if (action.type === 'INPUT_BLUR') {
+    let stateValue = state.value.replace(/\s/g, '');
+    let formattedStateValue = stateValue.replace(/(.{4})/g, '$1 ');
+    stateValue = formattedStateValue.trim();
+    const testStateValue = stateValue.replace(/\s/g, '');
     return {
       value: state.value,
-      isValid:
-        numberRegex.test(state.value.trim()) &&
-        state.value.trim().length === 16,
+      isValid: numberRegex.test(testStateValue) && testStateValue.length === 16,
     };
   }
   return { value: '', isValid: false };
