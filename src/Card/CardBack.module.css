@@ -17,7 +17,7 @@
 
 .card-back-cvc {
     position: absolute;
-    bottom: 50%;
+     bottom: clamp(3.75rem, 2.75rem + 4vw, 10rem); 
     right: 20%;
 }
 
