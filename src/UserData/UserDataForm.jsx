@@ -233,6 +233,7 @@ const UserDataForm = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    props.onFormSubmit(formIsValid);
     // tutaj state w górę
   };
 
@@ -326,7 +327,7 @@ const UserDataForm = (props) => {
             />
           </div>
         </div>
-        <Button type="submit" disabled={!formIsValid}>
+        <Button type="submit" disabled={!formIsValid} onClick={submitHandler}>
           Confirm
         </Button>
       </form>
