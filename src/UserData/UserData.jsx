@@ -15,12 +15,16 @@ const UserData = (props) => {
     setFormValid(formState);
   };
 
+  const continueHandler = () => {
+    setFormValid(false);
+  };
+
   return (
     <div className={classes['user-data']}>
       {formValid === false && (
         <UserDataForm onData={dataChangeHandler} onFormSubmit={submitHandler} />
       )}
-      {formValid === true && <UserDataComplete />}
+      {formValid === true && <UserDataComplete onContinue={continueHandler} />}
     </div>
   );
 };
