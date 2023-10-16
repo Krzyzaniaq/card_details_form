@@ -8,7 +8,7 @@
     height: clamp(10rem, 8rem + 8vw, 28rem);
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 1.5rem;
     color: hsl(0, 0%, 100%);
     border-radius: 16px;
     left: clamp(6rem, 4rem + 14vw, 36rem); 
