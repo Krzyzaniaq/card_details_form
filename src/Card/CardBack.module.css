@@ -1,22 +1,42 @@
 .card-back {
     position: relative;
     background-image: url('../assets/bg-card-back.png');
-    background-size: cover;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
-    width: 400px;
-    height: 220px;
+    background-position: center;
+    width: clamp(18rem, 16rem + 12vw, 40rem);
+    height: clamp(10rem, 8rem + 8vw, 28rem);
     display: flex;
     flex-direction: column;
     padding: 24px;
     color: hsl(0, 0%, 100%);
     border-radius: 16px;
-    left: 50%;
+    left: clamp(6rem, 4rem + 14vw, 36rem); 
     font-size: 0.8rem;
 }
 
 .card-back-cvc {
     position: absolute;
-    bottom: 90px;
-    right: 50px;
+    bottom: 50%;
+    right: 20%;
+}
+
+@media (min-width: 1900px) {
+    .card-back {
+        left: clamp(16rem, 10rem + 14vw, 48rem);
+    }
+}
+
+@media (max-width: 1400px) {
+    .card-back {
+        left: clamp(4rem, 3rem + 8vw, 32rem)
+    }
+}
+
+@media (max-width: 1100px) {
+    .card-back {
+        order: 1;
+        left: auto;
+    }
 }
 

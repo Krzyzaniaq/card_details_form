@@ -1,12 +1,10 @@
-/* hsl(270, 3%, 87%) */
-
 .data-form {
-    width: 350px;
+    width: clamp(20rem, 18rem + 12vw, 60rem);
     text-align: left;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 20px;
+    gap: clamp(1.5rem, 0.75rem + 2vw, 2rem);
 }
 
 .text {
@@ -20,7 +18,7 @@
     color: hsl(0, 100%, 66%);
     font-size: 0.6rem;
     letter-spacing: 1px;
-    margin: 2px 0 0 0;
+    margin: 0.2rem 0 0 0;
     width: 50%;
 }
 
@@ -71,4 +69,8 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 5px;
+}
+
+@media (max-width: 1100px) {
+
 }
