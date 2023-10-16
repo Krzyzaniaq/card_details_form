@@ -12,12 +12,12 @@
     color: hsl(0, 0%, 100%);
     border-radius: 16px;
     left: clamp(6rem, 4rem + 14vw, 36rem); 
-    font-size: 0.8rem;
+    font-size: clamp(0.8rem, 0.4rem + 0.5vw, 2rem);
 }
 
 .card-back-cvc {
     position: absolute;
-     bottom: clamp(3.75rem, 2.75rem + 4vw, 10rem); 
+    bottom: clamp(3.75rem, 2.55rem + 4vw, 8.5rem); 
     right: 20%;
 }
 
